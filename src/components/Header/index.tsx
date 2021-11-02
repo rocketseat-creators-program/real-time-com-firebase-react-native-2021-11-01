@@ -1,11 +1,19 @@
 import React, {useState} from 'react';
 import {Heading, Input, Spacer, HStack, Button} from 'native-base';
+import firestore from '@react-native-firebase/firestore';
 
 const Header = () => {
   const [newItem, setNewItem] = useState('');
 
   const handleAddItem = () => {
-    // TODO ADD ITEM
+    const newData = {
+      title: newItem,
+      isDone: false,
+      createdAt: new Date(),
+    };
+
+    firestore().collection('todos').add(newData);
+    setNewItem('');
   };
 
   return (
